@@ -1,0 +1,14 @@
+name: Update README
+on:
+  schedule:
+    - cron: '0 12 * * *'  # Diario a las 12 PM
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "📅 Last update: $(date)" >> README.md
+          git config --global user.name "GitHub Actions"
+          git commit -am "docs: Auto-update timestamp" || echo "No changes"
+          git push
