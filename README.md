@@ -1,8 +1,4 @@
-```markdown
-<div align="center">
-  
-  ![KaliNova Logo](https://via.placeholder.com/300x100/000000/00FF41?text=KALINOVA)  
-  *(Espacio para tu logo en SVG)*  
+```markdown 
 
   # 🔥 KaliNova  
   ### *The Next-Gen Pentesting Framework*  
