@@ -8,13 +8,7 @@
   ██║  ██╗██║  ██║███████╗██║ ╚████║╚██████╔╝ ╚████╔╝ ██║  ██║
   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚═╝  ╚═╝
   ```
-  *Logo ASCII generado con [patorjk.com](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=KaliNova)*
 
-</div>
-```
-
-
-  # 🔥 KaliNova  
   ### *The Next-Gen Pentesting Framework*  
 
   [![GitHub License](https://img.shields.io/badge/License-GPLv3-red)](LICENSE)  
