@@ -1,5 +1,5 @@
 
-  <h1>🔥 KaliNova</h1>
+
   <h3>The <span style="color: #00FF41;">Next-Gen</span> Pentesting Framework</h3>
   
 
