@@ -1,13 +1,5 @@
 
 
-  <h3>The <span style="color: #00FF41;">Next-Gen</span> Pentesting Framework</h3>
-  
-
-  
-  [![GitHub Stars](https://img.shields.io/github/stars/KevinDevSecOps/KaliNova?style=social)](https://github.com/KevinDevSecOps/KaliNova)
-  [![Twitter](https://img.shields.io/twitter/follow/KaliNovaTool?style=social)](https://twitter.com/KaliNovaTool)
-</div>
-
 <div align="center">
   
   ``` 
