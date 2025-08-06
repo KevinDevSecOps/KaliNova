@@ -1,4 +1,4 @@
-
+wget https://i.imgur.com/J4q6Xtl.png -O assets/logo.png
 
 <div align="center">
   
