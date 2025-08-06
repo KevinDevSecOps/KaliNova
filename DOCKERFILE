@@ -1,0 +1,8 @@
+FROM kalilinux/kali-rolling
+RUN apt update && apt install -y python3 git
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+ENTRYPOINT ["python3", "core/cli.py"]
+docker build -t kalinova .  
+docker run -it --net=host kalinova --scan 10.0.0.0/24
