@@ -174,3 +174,4 @@ LANG=es kalinova --help
 ```
 
 ---
+[![BlackMint](https://img.shields.io/badge/Sister_Project-BlackMint-2E8B57)](https://github.com/KevinDevSecOps/BlackMint)
