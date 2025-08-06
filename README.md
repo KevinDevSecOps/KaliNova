@@ -72,6 +72,11 @@ configs/
 └── logging.conf   # Stealth Logging
 ```
 
+## 📜 License 
+KaliNova is licensed under the [GNU GPLv3](LICENSE). Key requirements:
+- Derivative works must remain open-source
+- Use only for authorized security testing
+
 ---
 
 ## 🤝 Contributing
