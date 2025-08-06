@@ -23,6 +23,82 @@
 
 ---
 
+  # 𝕶𝖆𝖑𝖎𝕹𝖔𝖛𝖆  
+  ### *Next-Gen Pentesting Framework*  
+
+  [![GitHub Release](https://img.shields.io/badge/Version-0.1_Alpha-red)](https://github.com/KevinDevSecOps/KaliNova/releases)
+  [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://www.python.org/)
+  [![License](https://img.shields.io/badge/License-GPLv3-black)](LICENSE)
+  [![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord)](https://discord.gg/your-invite)
+</div>
+
+---
+
+## 🚀 Features
+| Module          | Description                          | Tech Used          |
+|-----------------|--------------------------------------|--------------------|
+| `AutoExploit`   | CVE Scanning & Weaponization         | NVD API, Metasploit|
+| `StealthMode`   | EDR/AV Evasion                       | XOR, Process Injection |
+| `AI Assistant`  | GPT-4 Powered Exploit Crafting       | OpenAI API         |
+
+```python
+# Quick Example:
+from kalinova.exploit import ZeroDayHunter
+ZeroDayHunter("CVE-2023-1234").execute(target="192.168.1.1")
+```
+
+---
+
+## 📦 Installation
+```bash
+# Option 1: Auto-Install (Kali/Arch)
+curl -sSL https://kalinova.tools/install | bash
+
+# Option 2: Manual
+git clone https://github.com/KevinDevSecOps/KaliNova.git
+cd KaliNova && pip install -e .
+```
+
+---
+
+## 🛠️ Project Structure
+```bash
+core/
+├── exploit/       # CVE → Exploit Automation
+├── evasion/       # Bypass Techniques  
+├── ai/            # LLM Integration
+configs/
+├── c2_profiles/   # Covenant, Metasploit
+└── logging.conf   # Stealth Logging
+```
+
+---
+
+## 🤝 Contributing
+1. Fork the Project  
+2. Create your Feature Branch:  
+   ```bash
+   git checkout -b feat/amazing-feature
+   ```
+3. Submit a **Pull Request** with:
+   - Tests (`pytest tests/`)  
+   - Docs Updated  
+
+---
+
+## ⚠️ Legal Disclaimer
+**KaliNova is for authorized penetration testing only.**  
+*By using this tool, you agree to:*
+- [ ] Comply with all applicable laws  
+- [ ] Obtain explicit permission  
+- [ ] Never attack non-owned systems  
+
+---
+
+<div align="center">
+  <sub>Created with ♥ by KevinDevSecOps | Need help? Open an Issue</sub>
+</div>
+```
 ## 🚀 Features  
 - **Explotación en 1 clic**: Búsqueda automática de CVEs y generación de payloads.  
 - **Evasión Activa**: Bypass de EDR/AV con técnicas de ofuscación dinámica.  
