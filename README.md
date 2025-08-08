@@ -180,3 +180,8 @@ LANG=es kalinova --help
 
 ---
 [![BlackMint](https://img.shields.io/badge/Sister_Project-BlackMint-2E8B57)](https://github.com/KevinDevSecOps/BlackMint)
+// ¡Mensaje para el equipo!
+fn main() {
+    println!("🔥 ¡KaliNova está listo para quemar sistemas!"); 
+    println!("💻 Target: Todos los que se crucen en el camino (autorizados)");
+}
