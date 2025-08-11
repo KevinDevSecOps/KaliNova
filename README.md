@@ -32,6 +32,20 @@
   [![License](https://img.shields.io/badge/License-GPLv3-black)](LICENSE)
   [![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord)](https://discord.gg/your-invite)
 
+```mermaid
+graph TB
+    subgraph "🖥️ KaliNova OS"
+        A[📟 CLI] --> B[⚙️ API]
+        B --> C[💥 Attacks]
+        B --> D[🔍 Post-Exploit]
+    end
+    subgraph "📡 Hardware"
+        E[🎛️ PortaPack] -->|📶 RF| C
+        F[📡 HackRF] -->|🎙️ Capture| D
+    end
+    C --> G[🏭 Industrial]
+    D --> H[☁️ Cloud CTF]
+```
 <div style="background:#1a1a1a;padding:15px;border-radius:10px">
   <p style="color:#FF6B6B;font-weight:bold">PortaPack ➔ <span style="color:#4ECDC4">KaliNova</span></p>
   <div style="margin-left:20px">
