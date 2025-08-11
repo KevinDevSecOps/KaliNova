@@ -32,19 +32,34 @@
   [![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord)](https://discord.gg/your-invite)
 </div>
 
-```mermaid
-graph TB
-    subgraph KaliNova
-        A[CLI] --> B(RF Tools)
-        B --> C[Modbus Exploiter]
-        B --> D[Zigbee Jammer]
+%% Diagrama de Arquitectura KaliNova RF Edition
+graph LR
+    subgraph Hardware
+        A[PortaPack-Havoc] -->|Señales RF| B[HackRF One]
+        B -->|USB| C[KaliNova Device]
     end
-    subgraph PortaPack-Havoc
-        E[HackRF] -->|Señales RAW| B
-        E --> F[GPS Spoofing]
+
+    subgraph KaliNova Framework
+        C --> D[RF Kill Chain]
+        D --> E[Escaneo Automatizado]
+        D --> F[Inyección de Comandos]
+        D --> G[Post-Explotación]
+        C --> H[Exploit DB]
+        H -->|Modbus RTU| I[PLC Exploits]
+        H -->|LoRaWAN| J[LPWAN Attacks]
     end
-    A --> G{{Cloud CTF}}
-    G -->|Auto-Deploy| H[Industrial IoT Targets]
+
+    subgraph Targets
+        K[Sensor Industrial] -->|Vulnerable| E
+        L[Gateway IoT] -->|Ataque| F
+        M[Dispositivo Médico] -->|Exploit| G
+    end
+
+    style A fill:#ff9f43,stroke:#333
+    style B fill:#ff9f43,stroke:#333
+    style C fill:#2e86de,stroke:#333
+    style D fill:#ee5253,stroke:#333
+    style H fill:#5f27cd,stroke:#333
 ---
 
 ## 🚀 Features
