@@ -30,14 +30,7 @@
   [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://www.python.org/)
   [![License](https://img.shields.io/badge/License-GPLv3-black)](LICENSE)
   [![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord)](https://discord.gg/your-invite)
-</div>
 
-%% Diagrama de Arquitectura KaliNova RF Edition
-graph LR
-  
-graph LR
-    PortaPack -->|Señales| KaliNova
-    KaliNova -->|Exploits| IoT
 ---
 
 ## 🚀 Features
