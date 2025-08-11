@@ -228,3 +228,6 @@ fn main() {
     println!("🔥 ¡KaliNova está listo para quemar sistemas!"); 
     println!("💻 Target: Todos los que se crucen en el camino (autorizados)");
 }
+<p align="center">
+  <img src="https://media.giphy.com/media/10yE1rO7ReOeKQ/giphy.gif" width="300" alt="Mr. Robot">
+</p>
