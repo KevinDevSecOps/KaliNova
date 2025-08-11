@@ -31,6 +31,14 @@
   [![License](https://img.shields.io/badge/License-GPLv3-black)](LICENSE)
   [![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord)](https://discord.gg/your-invite)
 
+<div style="background:#1a1a1a;padding:15px;border-radius:10px">
+  <p style="color:#FF6B6B;font-weight:bold">PortaPack ➔ <span style="color:#4ECDC4">KaliNova</span></p>
+  <div style="margin-left:20px">
+    <p>├─ RF Scan</p>
+    <p>├─ Exploit DB</p>
+    <p>└─ <span style="color:#FFE66D">GPS Spoofing</span></p>
+  </div>
+</div>
 ---
 
 ## 🚀 Features
