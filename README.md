@@ -1,4 +1,10 @@
-
+graph LR
+    A[PortaPack] -->|RF| B(KaliNova)
+    B --> C{Análisis}
+    C -->|Exploit| D[PLC]
+    C -->|Jam| E[Zigbee]
+    style A fill:#FF6B6B
+    style B fill:#4ECDC4
 
 <div align="center">
   
