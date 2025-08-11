@@ -77,6 +77,26 @@ core/
 configs/
 ├── c2_profiles/   # Covenant, Metasploit
 └── logging.conf   # Stealth Logging
+## 🌐 KaliNova Architecture
+```mermaid
+graph TB
+    subgraph KaliNovaOS["KaliNova OS"]
+        A[CLI] --> B[API]
+        B --> C[Attacks]
+        B --> D[Post-Exploitation]
+    end
+    subgraph Hardware
+        E[PortaPack] -->|RF Signals| C
+        F[HackRF] -->|Capture| D
+    end
+    C --> G[Industrial Targets]
+    D --> H[Cloud CTF]
+    style KaliNovaOS fill:#2ecc71,stroke:#333
+    style Hardware fill:#e74c3c,stroke:#333
+```
+**Key**:  
+- 🟢 **Verde**: KaliNova Core  
+- 🔴 **Rojo**: Hardware Integration
 ```
 
 ## 📜 License 
