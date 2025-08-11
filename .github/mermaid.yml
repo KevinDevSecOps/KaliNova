@@ -1,0 +1,4 @@
+# .github/mermaid.yml
+theme: default
+fontFamily: "Fira Code, monospace"
+securityLevel: "loose"
