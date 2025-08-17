@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "novastealth",
+    "packet_sniffer",
+    "rfid_tool"
+]
