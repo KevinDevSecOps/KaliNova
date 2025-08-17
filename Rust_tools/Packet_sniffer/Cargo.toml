@@ -1,0 +1,10 @@
+[package]
+name = "packet_sniffer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pnet = "0.31"          # Para captura de paquetes
+tokio = { version = "1.0", features = ["full"] }  # Async
+serde_json = "1.0"     # Para exportar resultados
+tui = "0.19"           # Interfaz visual (opcional)
