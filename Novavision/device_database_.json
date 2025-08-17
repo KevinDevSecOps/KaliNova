@@ -1,0 +1,10 @@
+{
+    "router": {
+        "vulnerabilities": ["CVE-2023-1234", "Default Credentials"],
+        "exploit": "use exploit/unix/http/router_admin_takeover"
+    },
+    "rfid_card": {
+        "vulnerabilities": ["Cloning", "Replay Attacks"],
+        "exploit": "rfid_clone --target UID"
+    }
+}
