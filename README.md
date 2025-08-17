@@ -58,7 +58,7 @@ graph TB
 ---
 ```markdown
 <div align="center">
-  <img src="https://i.imgur.com/J7hYwl3.gif" width="600" alt="KaliNova Logo">
+ width="600" alt="KaliNova Logo">
   <h1>⚡ KaliNova - La Evolución del Hacking Ético ⚡</h1>
   <p>
     <em>"No rompemos sistemas, los hacemos evolucionar"</em>
