@@ -56,6 +56,97 @@ graph TB
   </div>
 </div>
 ---
+```markdown
+<div align="center">
+  <img src="https://i.imgur.com/J7hYwl3.gif" width="600" alt="KaliNova Logo">
+  <h1>⚡ KaliNova - La Evolución del Hacking Ético ⚡</h1>
+  <p>
+    <em>"No rompemos sistemas, los hacemos evolucionar"</em>
+  </p>
+
+  [![GitHub Stars](https://img.shields.io/github/stars/KevinDevSecOps/KaliNova?style=for-the-badge&color=red)](https://github.com/KevinDevSecOps/KaliNova/stargazers)
+  [![License](https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge)](LICENSE)
+  [![Twitter](https://img.shields.io/badge/Twitter-@KevDevSecOps-1DA1F2?style=for-the-badge)](https://twitter.com/KevDevSecOps)
+</div>
+
+---
+
+## 🚀 **¿Qué es KaliNova?**  
+KaliNova es un **arsenal de herramientas de hacking ético** escritas en Rust, Python y Go, diseñadas para:  
+
+- 🔍 **Auditorías profesionales** con IA integrada  
+- 🛡️ **Defensa proactiva** contra amenazas 0-day  
+- ⚡ **Rendimiento extremo** (Gracias a Rust 🦀)  
+
+```ascii
+  _____________________
+ /  _____/______ _______
+/   \  __\_  __ \\_  __ \
+\    \_\  \  | \/ |  | \/
+ \______  /__|    |__|
+        \/
+```
+
+---
+
+## 🌌 **Features Destacadas**  
+
+| Módulo         | Descripción                          | Tecnología |
+|----------------|--------------------------------------|------------|
+| **NovaVision** | Escáner visual de dispositivos IoT   | Python+YOLO|
+| **NovaStealth**| VPN indetectable multi-protocolo     | Rust+WireGuard |
+| **RFID Nova**  | Clonación segura de tarjetas         | Proxmark3  |
+
+---
+
+## 🛠️ **Instalación Relámpago**  
+
+```bash
+# 1. Clona el repositorio
+git clone --depth=1 https://github.com/KevinDevSecOps/KaliNova.git
+cd KaliNova
+
+# 2. Instala dependencias
+./install.sh --full
+
+# 3. ¡Hackea el planeta!
+sudo nova scan --target 192.168.1.0/24
+```
+
+> 💡 **Tip**: Usa `--lite` en sistemas con pocos recursos.
+
+---
+
+## 🎮 **Demo Interactiva**  
+[![Try in Repl.it](https://replit.com/badge/github/KevinDevSecOps/KaliNova)](https://replit.com/@KevDevSecOps/KaliNova-Demo)  
+*(Prueba NovaVision en tu navegador sin instalar nada)*  
+
+---
+
+## 📡 **Roadmap 2024**  
+- [x] Lanzamiento v1.0 (Q1 2024)  
+- [ ] Integración con GPT-4 para análisis automático  
+- [ ] Versión para Raspberry Pi 5  
+
+---
+
+## ⚠️ **Aviso Legal**  
+```diff
+- SOLO USO ÉTICO BAJO AUTORIZACIÓN
+- El mal uso es ILEGAL y puede llevarte a la cárcel
++ Únete a nuestra comunidad de hacking responsable: https://discord.gg/novacrew
+```
+
+---
+
+<div align="center">
+  <h3>🌐 ¿Listo para la próxima generación de seguridad ofensiva?</h3>
+  <img src="https://komarev.com/ghpvc/?username=KaliNova&label=Visitas&color=red&style=flat" alt="Visitas">
+</div>
+```
+
+---
+
 
 ## 🚀 Features
 | Module          | Description                          | Tech Used          |
