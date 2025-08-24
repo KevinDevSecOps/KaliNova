@@ -1,129 +1,4 @@
-# Makefile para KaliNova - Herramientas avanzadas de pentesting en C++
-# Editar el Makefile existente y agregar las referencias al Network Analyzer
 
-# Agregar estas líneas en las secciones correspondientes:
-
-# Después de la definición de SCANNER_SOURCES
-NETWORK_SOURCES = $(NETWORK_DIR)/NetworkAnalyzer.cpp
-
-# Después de la definición de TEST_SCANNER_SOURCE
-TEST_NETWORK_SOURCE = $(NETWORK_DIR)/test_analyzer.cpp
-
-# Después de la definición de SCANNER_OBJ
-NETWORK_OBJ = $(OBJ_DIR)/NetworkAnalyzer.o
-TEST_NETWORK_OBJ = $(OBJ_DIR)/test_analyzer.o
-
-# Después de la definición de TEST_SCANNER_BIN
-TEST_NETWORK_BIN = $(BIN_DIR)/test_analyzer
-
-# Agregar esta regla después de las reglas del scanner
-$(TEST_NETWORK_BIN): $(TEST_NETWORK_OBJ) $(NETWORK_OBJ)
-	@echo "Enlazando test del analizador de red..."
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
-
-# Agregar esta regla de compilación
-$(OBJ_DIR)/%.o: $(NETWORK_DIR)/%.cpp
-	@echo "Compilando $<..."
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Actualizar el target all para incluir el test del network analyzer
-all: directories $(SCANNER_BIN) $(TEST_NETWORK_BIN)
-# Configuración del compilador
-CC = g++
-CFLAGS = -std=c++17 -Wall -Wextra -O2 -pthread
-DEBUG_FLAGS = -g -DDEBUG
-LIBS = -lpcap -lcurl
-
-# Directorios del proyecto
-SRC_DIR = src
-SCANNER_DIR = $(SRC_DIR)/vulnerability_scanner
-NETWORK_DIR = $(SRC_DIR)/network_analyzer
-FUZZER_DIR = $(SRC_DIR)/advanced_fuzzer
-BUILD_DIR = build
-BIN_DIR = bin
-OBJ_DIR = $(BUILD_DIR)/obj
-
-# Archivos fuente
-SCANNER_SOURCES = $(SCANNER_DIR)/VulnerabilityScanner.cpp
-NETWORK_SOURCES = $(NETWORK_DIR)/NetworkAnalyzer.cpp
-FUZZER_SOURCES = $(FUZZER_DIR)/AdvancedFuzzer.cpp
-MAIN_SOURCE = $(SRC_DIR)/main.cpp
-
-# Archivos de prueba
-TEST_SCANNER_SOURCE = $(SCANNER_DIR)/test_scanner.cpp
-TEST_NETWORK_SOURCE = $(NETWORK_DIR)/test_analyzer.cpp
-TEST_FUZZER_SOURCE = $(FUZZER_DIR)/test_fuzzer.cpp
-
-# Archivos objeto
-SCANNER_OBJ = $(OBJ_DIR)/VulnerabilityScanner.o
-NETWORK_OBJ = $(OBJ_DIR)/NetworkAnalyzer.o
-FUZZER_OBJ = $(OBJ_DIR)/AdvancedFuzzer.o
-MAIN_OBJ = $(OBJ_DIR)/main.o
-
-TEST_SCANNER_OBJ = $(OBJ_DIR)/test_scanner.o
-TEST_NETWORK_OBJ = $(OBJ_DIR)/test_analyzer.o
-TEST_FUZZER_OBJ = $(OBJ_DIR)/test_fuzzer.o
-
-# Ejecutables
-MAIN_BIN = $(BIN_DIR)/kalinova
-TEST_SCANNER_BIN = $(BIN_DIR)/test_scanner
-TEST_NETWORK_BIN = $(BIN_DIR)/test_analyzer
-TEST_FUZZER_BIN = $(BIN_DIR)/test_fuzzer
-
-# Target principal - compila todo
-all: directories $(MAIN_BIN) $(TEST_SCANNER_BIN) $(TEST_NETWORK_BIN) $(TEST_FUZZER_BIN)
-
-# Crear directorios necesarios
-directories:
-	@mkdir -p $(BUILD_DIR) $(BIN_DIR) $(OBJ_DIR)
-	@mkdir -p $(SCANNER_DIR) $(NETWORK_DIR) $(FUZZER_DIR)
-	@echo "Directorios creados."
-
-# Compilar el programa principal
-$(MAIN_BIN): $(MAIN_OBJ) $(SCANNER_OBJ) $(NETWORK_OBJ) $(FUZZER_OBJ)
-	@echo "Enlazando ejecutable principal..."
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
-	@echo "Ejecutable principal creado: $(MAIN_BIN)"
-
-# Compilar tests individuales
-$(TEST_SCANNER_BIN): $(TEST_SCANNER_OBJ) $(SCANNER_OBJ)
-	@echo "Enlazando test del escáner..."
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
-
-$(TEST_NETWORK_BIN): $(TEST_NETWORK_OBJ) $(NETWORK_OBJ)
-	@echo "Enlazando test del analizador de red..."
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
-
-$(TEST_FUZZER_BIN): $(TEST_FUZZER_OBJ) $(FUZZER_OBJ)
-	@echo "Enlazando test del fuzzer..."
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
-
-# Compilar objetos principales
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@echo "Compilando $<..."
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(SCANNER_DIR)/%.cpp
-	@echo "Compilando $<..."
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(NETWORK_DIR)/%.cpp
-	@echo "Compilando $<..."
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(FUZZER_DIR)/%.cpp
-	@echo "Compilando $<..."
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Compilación con debug
-debug: CFLAGS += $(DEBUG_FLAGS)
-debug: clean all
-
-# Limpiar archivos compilados
-clean:
-	@echo "Limpiando proyecto..."
-	rm -rf $(BUILD_DIR) $(BIN_DIR)
-	@echo "Limpieza completada."
 
 # Instalar en el sistema
 install: all
@@ -181,3 +56,32 @@ setup:
 	@echo "Estructura base creada. Ejecuta 'make all' para compilar."
 
 .PHONY: all clean install uninstall help directories debug setup
+# Editar el Makefile existente y agregar las referencias al Advanced Fuzzer
+
+# Agregar estas líneas en las secciones correspondientes:
+
+# Después de la definición de NETWORK_SOURCES
+FUZZER_SOURCES = $(FUZZER_DIR)/AdvancedFuzzer.cpp
+
+# Después de la definición de TEST_NETWORK_SOURCE
+TEST_FUZZER_SOURCE = $(FUZZER_DIR)/test_fuzzer.cpp
+
+# Después de la definición de NETWORK_OBJ
+FUZZER_OBJ = $(OBJ_DIR)/AdvancedFuzzer.o
+TEST_FUZZER_OBJ = $(OBJ_DIR)/test_fuzzer.o
+
+# Después de la definición de TEST_NETWORK_BIN
+TEST_FUZZER_BIN = $(BIN_DIR)/test_fuzzer
+
+# Agregar esta regla después de las reglas del network analyzer
+$(TEST_FUZZER_BIN): $(TEST_FUZZER_OBJ) $(FUZZER_OBJ)
+	@echo "Enlazando test del fuzzer..."
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+# Agregar esta regla de compilación
+$(OBJ_DIR)/%.o: $(FUZZER_DIR)/%.cpp
+	@echo "Compilando $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Actualizar el target all para incluir el test del fuzzer
+all: directories $(SCANNER_BIN) $(TEST_NETWORK_BIN) $(TEST_FUZZER_BIN)
