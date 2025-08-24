@@ -1,0 +1,155 @@
+# Makefile para KaliNova - Herramientas avanzadas de pentesting en C++
+
+# Configuración del compilador
+CC = g++
+CFLAGS = -std=c++17 -Wall -Wextra -O2 -pthread
+DEBUG_FLAGS = -g -DDEBUG
+LIBS = -lpcap -lcurl
+
+# Directorios del proyecto
+SRC_DIR = src
+SCANNER_DIR = $(SRC_DIR)/vulnerability_scanner
+NETWORK_DIR = $(SRC_DIR)/network_analyzer
+FUZZER_DIR = $(SRC_DIR)/advanced_fuzzer
+BUILD_DIR = build
+BIN_DIR = bin
+OBJ_DIR = $(BUILD_DIR)/obj
+
+# Archivos fuente
+SCANNER_SOURCES = $(SCANNER_DIR)/VulnerabilityScanner.cpp
+NETWORK_SOURCES = $(NETWORK_DIR)/NetworkAnalyzer.cpp
+FUZZER_SOURCES = $(FUZZER_DIR)/AdvancedFuzzer.cpp
+MAIN_SOURCE = $(SRC_DIR)/main.cpp
+
+# Archivos de prueba
+TEST_SCANNER_SOURCE = $(SCANNER_DIR)/test_scanner.cpp
+TEST_NETWORK_SOURCE = $(NETWORK_DIR)/test_analyzer.cpp
+TEST_FUZZER_SOURCE = $(FUZZER_DIR)/test_fuzzer.cpp
+
+# Archivos objeto
+SCANNER_OBJ = $(OBJ_DIR)/VulnerabilityScanner.o
+NETWORK_OBJ = $(OBJ_DIR)/NetworkAnalyzer.o
+FUZZER_OBJ = $(OBJ_DIR)/AdvancedFuzzer.o
+MAIN_OBJ = $(OBJ_DIR)/main.o
+
+TEST_SCANNER_OBJ = $(OBJ_DIR)/test_scanner.o
+TEST_NETWORK_OBJ = $(OBJ_DIR)/test_analyzer.o
+TEST_FUZZER_OBJ = $(OBJ_DIR)/test_fuzzer.o
+
+# Ejecutables
+MAIN_BIN = $(BIN_DIR)/kalinova
+TEST_SCANNER_BIN = $(BIN_DIR)/test_scanner
+TEST_NETWORK_BIN = $(BIN_DIR)/test_analyzer
+TEST_FUZZER_BIN = $(BIN_DIR)/test_fuzzer
+
+# Target principal - compila todo
+all: directories $(MAIN_BIN) $(TEST_SCANNER_BIN) $(TEST_NETWORK_BIN) $(TEST_FUZZER_BIN)
+
+# Crear directorios necesarios
+directories:
+	@mkdir -p $(BUILD_DIR) $(BIN_DIR) $(OBJ_DIR)
+	@mkdir -p $(SCANNER_DIR) $(NETWORK_DIR) $(FUZZER_DIR)
+	@echo "Directorios creados."
+
+# Compilar el programa principal
+$(MAIN_BIN): $(MAIN_OBJ) $(SCANNER_OBJ) $(NETWORK_OBJ) $(FUZZER_OBJ)
+	@echo "Enlazando ejecutable principal..."
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+	@echo "Ejecutable principal creado: $(MAIN_BIN)"
+
+# Compilar tests individuales
+$(TEST_SCANNER_BIN): $(TEST_SCANNER_OBJ) $(SCANNER_OBJ)
+	@echo "Enlazando test del escáner..."
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+$(TEST_NETWORK_BIN): $(TEST_NETWORK_OBJ) $(NETWORK_OBJ)
+	@echo "Enlazando test del analizador de red..."
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+$(TEST_FUZZER_BIN): $(TEST_FUZZER_OBJ) $(FUZZER_OBJ)
+	@echo "Enlazando test del fuzzer..."
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+# Compilar objetos principales
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@echo "Compilando $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(SCANNER_DIR)/%.cpp
+	@echo "Compilando $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(NETWORK_DIR)/%.cpp
+	@echo "Compilando $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(FUZZER_DIR)/%.cpp
+	@echo "Compilando $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compilación con debug
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: clean all
+
+# Limpiar archivos compilados
+clean:
+	@echo "Limpiando proyecto..."
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
+	@echo "Limpieza completada."
+
+# Instalar en el sistema
+install: all
+	@echo "Instalando KaliNova en el sistema..."
+	sudo cp $(MAIN_BIN) /usr/local/bin/kalinova
+	sudo cp $(TEST_SCANNER_BIN) /usr/local/bin/test_scanner
+	sudo cp $(TEST_NETWORK_BIN) /usr/local/bin/test_analyzer
+	sudo cp $(TEST_FUZZER_BIN) /usr/local/bin/test_fuzzer
+	@echo "Instalación completada."
+
+# Desinstalar
+uninstall:
+	@echo "Desinstalando KaliNova..."
+	sudo rm -f /usr/local/bin/kalinova
+	sudo rm -f /usr/local/bin/test_scanner
+	sudo rm -f /usr/local/bin/test_analyzer
+	sudo rm -f /usr/local/bin/test_fuzzer
+	@echo "Desinstalación completada."
+
+# Ayuda
+help:
+	@echo "Makefile para KaliNova - Opciones disponibles:"
+	@echo "  make all        - Compila todo el proyecto (por defecto)"
+	@echo "  make debug      - Compila con información de depuración"
+	@echo "  make clean      - Limpia los archivos compilados"
+	@echo "  make install    - Instala en el sistema"
+	@echo "  make uninstall  - Desinstala del sistema"
+	@echo "  make help       - Muestra esta ayuda"
+
+# Crear archivos base si no existen
+setup:
+	@echo "Creando estructura base del proyecto..."
+	
+	# Crear archivo principal si no existe
+	if [ ! -f "$(MAIN_SOURCE)" ]; then \
+		echo "Creando $(MAIN_SOURCE)..."; \
+		echo '#include <iostream>' > $(MAIN_SOURCE); \
+		echo '#include "vulnerability_scanner/VulnerabilityScanner.h"' >> $(MAIN_SOURCE); \
+		echo '#include "network_analyzer/NetworkAnalyzer.h"' >> $(MAIN_SOURCE); \
+		echo '#include "advanced_fuzzer/AdvancedFuzzer.h"' >> $(MAIN_SOURCE); \
+		echo 'int main() { std::cout << "KaliNova iniciado\\n"; return 0; }' >> $(MAIN_SOURCE); \
+	fi
+	
+	# Crear tests básicos si no existen
+	if [ ! -f "$(TEST_SCANNER_SOURCE)" ]; then \
+		echo "Creando $(TEST_SCANNER_SOURCE)..."; \
+		echo '#include "VulnerabilityScanner.h"' > $(TEST_SCANNER_SOURCE); \
+		echo '#include <iostream>' >> $(TEST_SCANNER_SOURCE); \
+		echo 'int main() {' >> $(TEST_SCANNER_SOURCE); \
+		echo '    std::cout << "Testing Vulnerability Scanner...\\n";' >> $(TEST_SCANNER_SOURCE); \
+		echo '    return 0;' >> $(TEST_SCANNER_SOURCE); \
+		echo '}' >> $(TEST_SCANNER_SOURCE); \
+	fi
+	
+	@echo "Estructura base creada. Ejecuta 'make all' para compilar."
+
+.PHONY: all clean install uninstall help directories debug setup
