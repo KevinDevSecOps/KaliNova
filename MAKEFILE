@@ -1,5 +1,33 @@
 # Makefile para KaliNova - Herramientas avanzadas de pentesting en C++
+# Editar el Makefile existente y agregar las referencias al Network Analyzer
 
+# Agregar estas líneas en las secciones correspondientes:
+
+# Después de la definición de SCANNER_SOURCES
+NETWORK_SOURCES = $(NETWORK_DIR)/NetworkAnalyzer.cpp
+
+# Después de la definición de TEST_SCANNER_SOURCE
+TEST_NETWORK_SOURCE = $(NETWORK_DIR)/test_analyzer.cpp
+
+# Después de la definición de SCANNER_OBJ
+NETWORK_OBJ = $(OBJ_DIR)/NetworkAnalyzer.o
+TEST_NETWORK_OBJ = $(OBJ_DIR)/test_analyzer.o
+
+# Después de la definición de TEST_SCANNER_BIN
+TEST_NETWORK_BIN = $(BIN_DIR)/test_analyzer
+
+# Agregar esta regla después de las reglas del scanner
+$(TEST_NETWORK_BIN): $(TEST_NETWORK_OBJ) $(NETWORK_OBJ)
+	@echo "Enlazando test del analizador de red..."
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+# Agregar esta regla de compilación
+$(OBJ_DIR)/%.o: $(NETWORK_DIR)/%.cpp
+	@echo "Compilando $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Actualizar el target all para incluir el test del network analyzer
+all: directories $(SCANNER_BIN) $(TEST_NETWORK_BIN)
 # Configuración del compilador
 CC = g++
 CFLAGS = -std=c++17 -Wall -Wextra -O2 -pthread
