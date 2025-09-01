@@ -87,6 +87,215 @@ KaliNova es un **arsenal de herramientas de hacking ético** escritas en Rust, P
         \/
 ```
 
+🚀 KaliNova - Plataforma de Pentesting Unificada
+
+Entorno de seguridad ofensiva todo-en-uno con arquitectura modular
+
+🏗️ Arquitectura del Sistema
+
+```mermaid
+graph TB
+    subgraph “KaliNova Core”
+        A[Kali Linux Base] --> B[Nova Engine]
+        B --> C[Module Manager]
+        B --> D[AI Assistant]
+    end
+
+    subgraph “Módulos de Pentesting”
+        E[Web Assessment] --> F[BurpSuite Nova]
+        E --> G[Nuclei AI]
+        
+        H[Network Analysis] --> I[Network Recon]
+        H --> J[Traffic Analysis]
+        
+        K[Wireless Audit] --> L[WiFi Pentest]
+        K --> M[RF Analysis]
+        
+        N[Cloud Security] --> O[AWS/Azure/GCP]
+        N --> P[Kubernetes]
+    end
+
+    C --> E
+    C --> H
+    C --> K
+    C --> N
+    
+    D --> E
+    D --> H
+    D --> K
+    D --> N
+```
+
+📦 Módulos Principales
+
+1. 🎯 KaliNova Core (core/)
+
+```bash
+# Instalación
+git clone https://github.com/KevinDevSecOps/KaliNova
+cd KaliNova && sudo ./install.sh
+
+# Características
+- Kali Linux optimizado
+- Gestor de módulos unificado
+- Asistente AI integrado
+- Entorno Dockerizado
+```
+
+2. 🔍 Web Assessment (modules/web/)
+
+```bash
+# Ejecución
+kalinova module web --target https://example.com
+
+# Herramientas
+- BurpSuite Nova Edition
+- Nuclei con templates AI
+- XSS/SQLi Scanner avanzado
+- API Security Testing
+```
+
+3. 🌐 Network Analysis (modules/network/)
+
+```bash
+# Escaneo
+kalinova module network --scan 192.168.1.0/24
+
+# Features
+- Reconocimiento automático
+- Análisis de tráfico AI
+- Detección de anomalías
+- Pentesting LAN/WAN
+```
+
+4. 📡 Wireless Audit (modules/wireless/)
+
+```bash
+# Auditoría WiFi
+kalinova module wireless --wifi --scan
+
+# Capacidades
+- Pentesting WiFi 6/6E
+- Auditoría RF con SDR
+- Análisis Bluetooth/BLE
+- IoT Device Testing
+```
+
+🔄 Flujo de Pentesting
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant K as KaliNova
+    participant M as Módulo
+    participant T as Target
+
+    U->>K: kalinova module web --target example.com
+    K->>M: Load Web Module
+    M->>T: Reconnaissance
+    T->>M: Response Data
+    M->>K: Analysis Results
+    K->>U: Vulnerability Report
+```
+
+🛡️ Esquema de Seguridad Operacional
+
+```mermaid
+graph LR
+    A[Operación] --> B{Environment Check}
+    B -->|Production| C[🚫 Blocked]
+    B -->|Test/Lab| D[Legal Agreement]
+    
+    D -->|Accepted| E[Anonymization]
+    D -->|Rejected| C
+    
+    E --> F[VPN/Tor]
+    F --> G[Execute]
+    G --> H[Log Cleaning]
+    H --> I[Report Generation]
+```
+
+⚙️ Instalación Rápida
+
+```bash
+# Instalación automática
+curl -sSL https://bit.ly/kalinova-install | bash
+
+# O instalación manual
+git clone https://github.com/KevinDevSecOps/KaliNova
+cd KaliNova
+chmod +x install.sh
+sudo ./install.sh --full
+```
+
+🚀 Uso Básico
+
+```bash
+# Menú principal interactivo
+kalinova --gui
+
+# línea de comandos
+kalinova module <module-name> [options]
+
+# Ejemplos:
+kalinova module web --target https://example.com --deep-scan
+kalinova module network --scan 10.0.0.0/24 --osint
+kalinova module wireless --wifi --audit
+```
+
+📋 Stack Tecnológico
+
+Capa Tecnologías Descripción
+Core Python, Docker, AI Models Núcleo del sistema
+Web BurpSuite, Nuclei, ZAP Testing web y APIs
+Network Nmap, Masscan, Zeek Análisis de red
+Wireless Aircrack-ng, Wireshark, SDR Pentesting inalámbrico
+Cloud ScoutSuite, Cloudsploit Seguridad cloud
+
+🔧 Estructura de Proyecto
+
+```
+KaliNova/
+├── core/                 # Núcleo del sistema
+├── modules/              # Módulos de pentesting
+│   ├── web/              # Assessment web
+│   ├── network/          # Análisis de red
+│   ├── wireless/         # Auditoría inalámbrica
+│   └── cloud/            # Seguridad cloud
+├── config/               # Configuraciones
+├── docs/                 # Documentación
+└── install.sh           # Instalador
+```
+
+🎯 Roadmap 2024
+
+· v1.0 - Core estable con módulos básicos
+· v1.5 - Integración AI avanzada
+· v2.0 - Interfaz web unificada
+· v2.5 - Módulos cloud enterprise
+· v3.0 - Plataforma SaaS enterprise
+
+⚠️ Aviso Legal
+
+KaliNova es solo para:
+
+· ✅ Pentesting autorizado
+· ✅ Educación en seguridad
+· ✅ Investigación ethical
+· ✅ Desarrollo defensivo
+
+NUNCA para:
+
+· ❌ Actividades ilegales
+· ❌ Acceso no autorizado
+· ❌ Daño a sistemas
+· ❌ Violación de privacidad
+
+---
+
+📄 Licencia: GPLv3 - 👤 Autor: KevinDevSecOps
+🐛 Reportar Issues: GitHub Issues
+📚 Documentación: Wiki
 ---
 
 ## 🌌 **Features Destacadas**  
