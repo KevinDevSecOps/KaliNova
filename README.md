@@ -91,40 +91,6 @@ KaliNova es un **arsenal de herramientas de hacking ético** escritas en Rust, P
 
 Entorno de seguridad ofensiva todo-en-uno con arquitectura modular
 
-🏗️ Arquitectura del Sistema
-
-```mermaid
-graph TB
-    subgraph “KaliNova Core”
-        A[Kali Linux Base] --> B[Nova Engine]
-        B --> C[Module Manager]
-        B --> D[AI Assistant]
-    end
-
-    subgraph “Módulos de Pentesting”
-        E[Web Assessment] --> F[BurpSuite Nova]
-        E --> G[Nuclei AI]
-        
-        H[Network Analysis] --> I[Network Recon]
-        H --> J[Traffic Analysis]
-        
-        K[Wireless Audit] --> L[WiFi Pentest]
-        K --> M[RF Analysis]
-        
-        N[Cloud Security] --> O[AWS/Azure/GCP]
-        N --> P[Kubernetes]
-    end
-
-    C --> E
-    C --> H
-    C --> K
-    C --> N
-    
-    D --> E
-    D --> H
-    D --> K
-    D --> N
-```
 
 📦 Módulos Principales
 
