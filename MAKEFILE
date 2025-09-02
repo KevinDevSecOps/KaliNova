@@ -1,4 +1,41 @@
+.PHONY: build test install clean
 
+build:
+	@echo "Building KaliNova installer..."
+	cargo build --release
+
+test:
+	@echo "Running tests..."
+	cargo test --verbose
+
+install: build
+	@echo "Installing..."
+	sudo cp target/release/kalinova-installer /usr/local/bin/
+	sudo mkdir -p /etc/kalinova
+	sudo cp config/modules.yaml /etc/kalinova/
+	sudo mkdir -p /opt/kalinova/scripts
+	sudo cp -r scripts/ /opt/kalinova/
+
+docker-build:
+	@echo "Building Docker image..."
+	docker build -t kalinova-installer .
+
+docker-run:
+	docker run -it --rm kalinova-installer list
+
+clean:
+	@echo "Cleaning..."
+	cargo clean
+	rm -f /usr/local/bin/kalinova-installer
+
+help:
+	@echo "Available targets:"
+	@echo "  build       - Build the installer"
+	@echo "  test        - Run tests"
+	@echo "  install     - Install to system"
+	@echo "  docker-build - Build Docker image"
+	@echo "  docker-run  - Run in Docker"
+	@echo "  clean       - Clean build artifacts"
 
 # Instalar en el sistema
 install: all
