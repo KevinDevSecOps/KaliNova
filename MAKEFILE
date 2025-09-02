@@ -1,3 +1,57 @@
+.PHONY: build test install clean docker-build docker-run red-team-tools
+
+build:
+	@echo "🦀 Building KaliNova installer..."
+	cargo build --release
+
+test:
+	@echo "🧪 Running tests..."
+	cargo test --verbose
+
+install: build
+	@echo "📦 Installing..."
+	sudo cp target/release/kalinova-installer /usr/local/bin/
+	sudo mkdir -p /etc/kalinova
+	sudo cp config/modules.yaml /etc/kalinova/
+	sudo mkdir -p /opt/kalinova/scripts
+	sudo cp -r scripts/ /opt/kalinova/
+	sudo chmod +x /opt/kalinova/scripts/install/*.sh
+
+docker-build:
+	@echo "🐳 Building Docker image..."
+	docker build -t kalinova-redteam .
+
+docker-run:
+	docker run -it --rm kalinova-redteam list
+
+red-team-tools: install
+	@echo "🔥 Installing Red Team tools..."
+	sudo kalinova-installer install command-control
+	sudo kalinova-installer install lateral-movement
+	sudo kalinova-installer install persistence
+	sudo kalinova-installer install evasion
+	sudo kalinova-installer install exfiltration
+	sudo kalinova-installer install osint-recon
+	sudo kalinova-installer install phishing
+
+full-install: install red-team-tools
+	@echo "🎯 Full Red Team suite installed!"
+
+clean:
+	@echo "🧹 Cleaning..."
+	cargo clean
+	rm -f /usr/local/bin/kalinova-installer
+
+help:
+	@echo "Available targets:"
+	@echo "  build         - Build the installer"
+	@echo "  test          - Run tests"
+	@echo "  install       - Install to system"
+	@echo "  red-team-tools - Install all Red Team tools"
+	@echo "  full-install  - Complete installation"
+	@echo "  docker-build  - Build Docker image"
+	@echo "  docker-run    - Run in Docker"
+	@echo "  clean         - Clean build artifacts"
 .PHONY: build test install clean
 
 build:
