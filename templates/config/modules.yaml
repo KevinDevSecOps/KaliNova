@@ -1,0 +1,85 @@
+# KaliNova Modular Configuration
+base_path: "/opt/kalinova"
+log_file: "/var/log/kalinova/installer.log"
+
+modules:
+  - name: "5g-pentesting"
+    description: "Herramientas de pentesting para redes 5G y RF"
+    install_script: "scripts/install/5g_tools.sh"
+    dependencies:
+      - "gnuradio"
+      - "gnuradio-dev"
+      - "gr-osmosdr"
+      - "hackrf"
+      - "libhackrf-dev"
+      - "libhackrf0"
+      - "wireshark"
+      - "tshark"
+      - "python3-scapy"
+      - "python3-numpy"
+    category: "wireless"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "ai-security"
+    description: "Herramientas de seguridad con Inteligencia Artificial"
+    install_script: "scripts/install/ai_tools.sh"
+    dependencies:
+      - "python3-tensorflow"
+      - "python3-torch"
+      - "python3-scikit-learn"
+      - "python3-pandas"
+      - "python3-matplotlib"
+      - "python3-seaborn"
+      - "jupyter-notebook"
+      - "python3-jupyter-core"
+    category: "ai"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "cloud-security"
+    description: "Herramientas para pentesting en entornos cloud"
+    install_script: "scripts/install/cloud_tools.sh"
+    dependencies:
+      - "awscli"
+      - "terraform"
+      - "cloudsploit"
+      - "pacsu"
+      - "cloudmapper"
+      - "python3-boto3"
+      - "python3-botocore"
+    category: "cloud"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "web-pentesting"
+    description: "Herramientas para testing de aplicaciones web"
+    install_script: "scripts/install/web_tools.sh"
+    dependencies:
+      - "burpsuite"
+      - "sqlmap"
+      - "nikto"
+      - "dirb"
+      - "gobuster"
+      - "wapiti"
+      - "whatweb"
+      - "subfinder"
+    category: "web"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "network-pentesting"
+    description: "Herramientas para análisis de redes"
+    install_script: "scripts/install/network_tools.sh"
+    dependencies:
+      - "nmap"
+      - "masscan"
+      - "netcat"
+      - "tcpdump"
+      - "ettercap-text-only"
+      - "driftnet"
+      - "responder"
+      - "onesixtyone"
+    category: "network"
+    enabled: true
+    version: "1.0.0"
