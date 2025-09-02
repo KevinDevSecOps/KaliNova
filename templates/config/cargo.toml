@@ -1,0 +1,26 @@
+[package]
+name = "kalinova-installer"
+version = "0.1.0"
+edition = "2021"
+description = "Modular installer for KaliNova security distribution"
+license = "GPL-3.0"
+authors = ["KevinDevSecOps <kalinova@kevinsecops.com>"]
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+colored = "2.0"
+chrono = "0.4"
+anyhow = "1.0"
+
+[build-dependencies]
+
+[[bin]]
+name = "kalinova-installer"
+path = "src/installer/modular_installer.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
