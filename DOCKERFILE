@@ -1,3 +1,54 @@
+FROM rust:1.67 as builder
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy source code
+COPY . .
+
+# Build Rust installer
+RUN cargo build --release
+
+# Runtime image
+FROM kalilinux/kali-rolling
+
+# Install basic dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    git \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy built binary
+COPY --from=builder /app/target/release/kalinova-installer /usr/local/bin/
+
+# Copy configuration files
+COPY config/ /etc/kalinova/
+COPY scripts/ /opt/kalinova/scripts/
+
+# Create directories
+RUN mkdir -p /var/log/kalinova /opt/kalinova/tools
+
+# Set permissions
+RUN chmod +x /usr/local/bin/kalinova-installer
+RUN chmod +x /opt/kalinova/scripts/install/*.sh
+
+# Create non-root user
+RUN useradd -m -s /bin/bash kalinova
+RUN chown -R kalinova:kalinova /opt/kalinova /var/log/kalinova
+
+USER kalinova
+
+WORKDIR /home/kalinova
+
+CMD ["kalinova-installer", "--help"]
 FROM kalilinux/kali-rolling
 RUN apt update && apt install -y python3 git
 COPY . /app
