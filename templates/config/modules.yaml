@@ -1,3 +1,108 @@
+- name: "command-control"
+    description: "Herramientas de Command & Control (C2) y redirección"
+    install_script: "scripts/install/red-team/command_control.sh"
+    dependencies:
+      - "metasploit-framework"
+      - "cobalt-strike"
+      - "sliver"
+      - "pwncat"
+      - "nginx"
+      - "socat"
+      - "netcat"
+      - "proxychains4"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "lateral-movement"
+    description: "Herramientas para movimiento lateral y pivoting"
+    install_script: "scripts/install/red-team/lateral_movement.sh"
+    dependencies:
+      - "crackmapexec"
+      - "bloodhound"
+      - "impacket-scripts"
+      - "evil-winrm"
+      - "responder"
+      - "enum4linux"
+      - "ldapdomaindump"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "persistence"
+    description: "Técnicas de persistencia y acceso mantenido"
+    install_script: "scripts/install/red-team/persistence.sh"
+    dependencies:
+      - "powershell"
+      - "nishang"
+      - "empire"
+      - "sharpshooter"
+      - "donut"
+      - "shellter"
+      - "veil"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "exfiltration"
+    description: "Herramientas para exfiltración de datos stealth"
+    install_script: "scripts/install/red-team/exfiltration.sh"
+    dependencies:
+      - "dnscat2"
+      - "iodine"
+      - "cloakify"
+      - "stegify"
+      - "steghide"
+      - "exiftool"
+      - "icmpsh"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "evasion"
+    description: "Técnicas de evasión y bypass de seguridad"
+    install_script: "scripts/install/red-team/evasion.sh"
+    dependencies:
+      - "golang"
+      - "mingw-w64"
+      - "upx-ucl"
+      - "hyperion"
+      - "pecloak"
+      - "shellcodecompiler"
+      - "avet"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "osint-recon"
+    description: "Herramientas de OSINT y reconocimiento avanzado"
+    install_script: "scripts/install/red-team/osint_recon.sh"
+    dependencies:
+      - "theharvester"
+      - "recon-ng"
+      - "maltego"
+      - "spiderfoot"
+      - "shodan"
+      - "amass"
+      - "subfinder"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
+
+  - name: "phishing"
+    description: "Herramientas para campañas de phishing"
+    install_script: "scripts/install/red-team/phishing.sh"
+    dependencies:
+      - "gophish"
+      - "setoolkit"
+      - "king-phisher"
+      - "evilginx2"
+      - "modlishka"
+      - "blackeye"
+      - "zphisher"
+    category: "red-team"
+    enabled: true
+    version: "1.0.0"
 # KaliNova Modular Configuration
 base_path: "/opt/kalinova"
 log_file: "/var/log/kalinova/installer.log"
