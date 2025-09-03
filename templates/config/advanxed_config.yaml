@@ -1,0 +1,28 @@
+# KaliNova Advanced Configuration
+version: 2.0
+
+ai:
+  enabled: true
+  model: "microsoft/codebert-base"
+  risk_threshold: 0.7
+
+integrations:
+  virustotal:
+    enabled: true
+    api_key: ${VIRUSTOTAL_API_KEY}
+  shodan:
+    enabled: true  
+    api_key: ${SHODAN_API_KEY}
+  abuseipdb:
+    enabled: true
+    api_key: ${ABUSEIPDB_API_KEY}
+
+reporting:
+  formats: ["pdf", "json", "html", "markdown"]
+  auto_generate: true
+  output_dir: "./reports"
+
+dashboard:
+  enabled: true
+  port: 8501
+  live_updates: true
