@@ -57,3 +57,23 @@ RUN pip install -r requirements.txt
 ENTRYPOINT ["python3", "core/cli.py"]
 docker build -t kalinova .  
 docker run -it --net=host kalinova --scan 10.0.0.0/24
+version: '3.8'
+
+services:
+  kalinova-redteam:
+    build: .
+    container_name: kalinova-redteam
+    privileged: true
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev:/dev
+      - /sys:/sys
+      - ./data:/opt/kalinova/data
+      - ./logs:/var/log/kalinova
+    environment:
+      - DISPLAY=$DISPLAY
+      - KALINOVA_HOME=/opt/kalinova
+    stdin_open: true
+    tty: true
+    command: /bin/bash
