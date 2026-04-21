@@ -205,3 +205,23 @@ $(OBJ_DIR)/%.o: $(NETWORK_DIR)/%.cpp
 
 # Actualizar el target all para incluir el test del network analyzer
 all: directories $(SCANNER_BIN) $(TEST_NETWORK_BIN)
+automation-build:
+	@echo "🦀 Building automation engine..."
+	cd src/automation && cargo build --release
+	sudo cp src/automation/target/release/kalinova-automation /usr/local/bin/
+
+automation-install: automation-build
+	@echo "📦 Installing automation scripts..."
+	sudo cp scripts/install/red-team/automation/*.sh /opt/kalinova/scripts/
+	sudo chmod +x /opt/kalinova/scripts/*.sh
+	sudo cp config/automation/campaigns.yaml /etc/kalinova/
+	sudo systemctl enable kalinova-automation
+	sudo systemctl start kalinova-automation
+
+automation-run:
+	@echo "🎯 Running automation..."
+	sudo kalinova-automation run --campaign full-ad-compromise
+
+automation-status:
+	@echo "📊 Automation status:"
+	sudo systemctl status kalinova-automation --no-pager
