@@ -172,3 +172,16 @@
     category: "red-team-advanced"
     enabled: true
     version: "1.0.0"
+- name: "mythic-c2"
+    description: "Mythic C2 Framework con agente C++ nativo"
+    install_script: "scripts/install/red-team/mythic/mythic_integration.sh"
+    dependencies:
+      - "docker.io"
+      - "docker-compose"
+      - "g++"
+      - "cmake"
+      - "libssl-dev"
+      - "python3-pip"
+    category: "red-team-advanced"
+    enabled: true
+    version: "1.0.0"
