@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mythic_server:
+    image: itsafeaturemythic:latest
+    container_name: mythic_server
+    environment:
+      - MYTHIC_ADMIN_USER=mythic_admin
+      - MYTHIC_ADMIN_PASSWORD=KaliNova2024!
+      - MYTHIC_ADMIN_EMAIL=admin@mythic.local
+    ports:
+      - "7443:7443"   # Interfaz web
+      - "8080:8080"   # Callback HTTP
+      - "8443:8443"   # Callback HTTPS
+    volumes:
+      - ./config:/opt/mythic/config
+      - ./payloads:/opt/mythic/payloads
+      - ./logs:/opt/mythic/logs
+    networks:
+      - mythic-network
+
+  postgres:
+    image: postgres:14
+    container_name: mythic_postgres
+    environment:
+      - POSTGRES_PASSWORD=mythic_password
+      - POSTGRES_DB=mythic
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mythic-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: mythic_rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=mythic
+      - RABBITMQ_DEFAULT_PASS=mythic_password
+    ports:
+      - "15672:15672"
+    networks:
+      - mythic-network
+
+networks:
+  mythic-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
